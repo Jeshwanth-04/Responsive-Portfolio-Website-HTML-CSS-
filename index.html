@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Jeshwanth Madharaphu">
+    <title>BMI Calculator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="text-center">
+            <img src="denside.png" alt="Sftwear Logo" class="page-logo mb-4">
+    </div>
+    <div class="container mt-5">
+        <h1 class="text-center">Body Mass Index (BMI) Calculator</h1>
+        <p class="text-center"><a href="../Home.html" class="btn btn-link">Back to Home</a></p>
+
+        <!-- Bootstrap Tabs -->
+        <ul class="nav nav-tabs" id="bmiTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="imperial-tab" data-bs-toggle="tab" data-bs-target="#imperial" type="button" role="tab" aria-controls="imperial" aria-selected="true">Imperial (US)</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="metric-tab" data-bs-toggle="tab" data-bs-target="#metric" type="button" role="tab" aria-controls="metric" aria-selected="false">Metric</button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="bmiTabContent">
+            <!-- Imperial Tab -->
+            <div class="tab-pane fade show active" id="imperial" role="tabpanel" aria-labelledby="imperial-tab">
+                <form id="imperialForm" class="mt-4" onsubmit="calculateImperialBMI(event)">
+                    <div class="mb-3">
+                        <label for="heightFeet" class="form-label">Height (Feet):</label>
+                        <input type="number" class="form-control" id="heightFeet" min="0" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="heightInches" class="form-label">Height (Inches):</label>
+                        <input type="number" class="form-control" id="heightInches" min="0" max="11" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="weightPounds" class="form-label">Weight (Pounds):</label>
+                        <input type="number" class="form-control" id="weightPounds" min="0" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Calculate BMI</button>
+                </form>
+                <div id="imperialResult" class="mt-3"></div>
+            </div>
+
+            <!-- Metric Tab -->
+            <div class="tab-pane fade" id="metric" role="tabpanel" aria-labelledby="metric-tab">
+                <form id="metricForm" class="mt-4" onsubmit="calculateMetricBMI(event)">
+                    <div class="mb-3">
+                        <label for="heightCm" class="form-label">Height (Centimeters):</label>
+                        <input type="number" class="form-control" id="heightCm" min="0" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="weightKilos" class="form-label">Weight (Kilograms):</label>
+                        <input type="number" class="form-control" id="weightKilos" min="0" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Calculate BMI</button>
+                </form>
+                <div id="metricResult" class="mt-3"></div>
+            </div>
+        </div>
+
+        <!-- BMI Category Reference -->
+        <div class="mt-5">
+            <h3>BMI Categories</h3>
+            <ul>
+                <li>Underweight: &lt; 18.5</li>
+                <li>Normal weight: 18.5 - 24.9</li>
+                <li>Overweight: 25 - 29.9</li>
+                <li>Obesity: BMI of 30 or greater</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <!-- BMICalcHelper.js -->
+    <script src="https://it411ajaxbmi8c2e.blob.core.windows.net/it411/BMICalcHelper.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        // Function to determine BMI category
+        function getBMICategory(bmi) {
+            if (bmi < 18.5) return "Underweight";
+            if (bmi >= 18.5 && bmi <= 24.9) return "Normal weight";
+            if (bmi >= 25 && bmi <= 29.9) return "Overweight";
+            return "Obesity";
+        }
+
+        // Calculate Imperial BMI
+        function calculateImperialBMI(event) {
+            event.preventDefault();
+            const form = document.getElementById("imperialForm");
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const heightFeet = parseFloat(document.getElementById("heightFeet").value);
+            const heightInches = parseFloat(document.getElementById("heightInches").value);
+            const weightPounds = parseFloat(document.getElementById("weightPounds").value);
+
+            // Validate inputs
+            if (heightFeet < 0 || heightInches < 0 || heightInches >= 12 || weightPounds < 0) {
+                document.getElementById("imperialResult").innerHTML = '<div class="alert alert-danger">Please enter valid values (e.g., inches must be 0-11).</div>';
+                return;
+            }
+
+            // Use BMICalcHelper.js function
+            const bmi = calcImperialBMIFeetAndInches(heightFeet, heightInches, weightPounds);
+            const category = getBMICategory(bmi);
+            document.getElementById("imperialResult").innerHTML = `
+                <div class="alert alert-success">
+                    Your BMI is <strong>${bmi.toFixed(1)}</strong>. Category: <strong>${category}</strong>
+                </div>`;
+        }
+
+        // Calculate Metric BMI
+        function calculateMetricBMI(event) {
+            event.preventDefault();
+            const form = document.getElementById("metricForm");
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const heightCm = parseFloat(document.getElementById("heightCm").value);
+            const weightKilos = parseFloat(document.getElementById("weightKilos").value);
+
+            // Validate inputs
+            if (heightCm <= 0 || weightKilos <= 0) {
+                document.getElementById("metricResult").innerHTML = '<div class="alert alert-danger">Please enter positive values for height and weight.</div>';
+                return;
+            }
+
+            // Use BMICalcHelper.js function
+            const bmi = calcMetricBMICMandMM(heightCm, 0, weightKilos);
+            const category = getBMICategory(bmi);
+            document.getElementById("metricResult").innerHTML = `
+                <div class="alert alert-success">
+                    Your BMI is <strong>${bmi.toFixed(1)}</strong>. Category: <strong>${category}</strong>
+                </div>`;
+        }
+    </script>
+</body>
+</html>

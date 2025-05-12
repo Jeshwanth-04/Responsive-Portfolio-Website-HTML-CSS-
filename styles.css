@@ -1,0 +1,210 @@
+/* General Reset and Typography */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Container Styling */
+.container {
+    max-width: 900px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+}
+
+/* Page Logo Styling */
+.page-logo {
+    max-width: 200px; /* Adjust based on your image size */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.page-logo:hover {
+    transform: scale(1.05); /* Subtle hover effect */
+}
+
+/* Headings */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #1a73e8;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #1a73e8;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Links and Buttons */
+.btn-primary {
+    background-color: #1a73e8;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover {
+    background-color: #1557b0;
+    transform: translateY(-2px);
+}
+
+.btn-link {
+    color: #1a73e8;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.btn-link:hover {
+    color: #1557b0;
+    text-decoration: underline;
+}
+
+/* Bootstrap Tabs Styling */
+.nav-tabs {
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.nav-tabs .nav-link {
+    font-weight: 600;
+    color: #666;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px 10px 0 0;
+    transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #f1f3f5;
+    color: #1a73e8;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #1a73e8;
+    color: #fff;
+    border-bottom: 3px solid #1a73e8;
+}
+
+/* Form Styling */
+.form-label {
+    font-weight: 500;
+    color: #444;
+}
+
+.form-control {
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #1a73e8;
+    box-shadow: 0 0 8px rgba(26, 115, 232, 0.2);
+    outline: none;
+}
+
+/* Result Alerts */
+.alert {
+    font-size: 1.1rem;
+    border-radius: 8px;
+    padding: 15px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.alert-success {
+    background-color: #e7f3e7;
+    color: #2e7d32;
+    border: 1px solid #2e7d32;
+}
+
+.alert-danger {
+    background-color: #fce7e7;
+    color: #d32f2f;
+    border: 1px solid #d32f2f;
+}
+
+/* BMI Categories List */
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+ul li {
+    padding: 8px 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+ul li::before {
+    content: "•";
+    color: #1a73e8;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 576px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .nav-tabs .nav-link {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+
+    .form-control {
+        padding: 8px;
+    }
+
+    .btn-primary {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .page-logo {
+        max-width: 150px; /* Smaller logo on mobile */
+    }
+}
